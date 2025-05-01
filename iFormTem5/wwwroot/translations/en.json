@@ -1,0 +1,13 @@
+﻿namespace iFormTem5.wwwroot.translations
+{
+  public class
+  en {
+    "login": "Login",
+    "register": "Register",
+    "logout": "Logout",
+    "profile": "Profile",
+    "theme": "Theme",
+    "language": "Language",
+    "search": "Search"
+  }
+}

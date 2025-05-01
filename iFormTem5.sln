@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iFormTem5", "iFormTem5\iFormTem5.csproj", "{C8139B28-62EA-44AD-8C0D-78117C904420}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C8139B28-62EA-44AD-8C0D-78117C904420}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8139B28-62EA-44AD-8C0D-78117C904420}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8139B28-62EA-44AD-8C0D-78117C904420}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8139B28-62EA-44AD-8C0D-78117C904420}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {04CC0B09-74EC-4801-8FF6-BA53DABC8A48}
+	EndGlobalSection
+EndGlobal

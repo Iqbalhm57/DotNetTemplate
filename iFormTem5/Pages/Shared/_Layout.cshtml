@@ -1,0 +1,116 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using iFormTem5.Models
+@inject UserManager<ApplicationUser> UserManager
+@inject SignInManager<ApplicationUser> SignInManager
+@inject iFormTem5.Data.ApplicationDbContext _context
+@inject IHttpContextAccessor contextAccessor
+
+
+@{
+    var currentEmail = contextAccessor.HttpContext.Session.GetString("UserName");
+    var currentRole = contextAccessor.HttpContext.Session.GetString("UserRole");
+    var Id = contextAccessor.HttpContext.Session.GetString("UserId");
+}
+
+
+
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - iFormTem5</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom shadow-sm">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-page="/Index">iFormTem5</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <input class="form-control me-2" type="search" placeholder="Search..." aria-label="Search" />
+                        </li>
+                    </ul>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item me-2">
+                            <button id="themeToggle" class="btn btn-outline-secondary">🌙</button>
+                        </li>
+
+                        <!-- Language Switcher -->
+                        <li class="nav-item dropdown me-2">
+                            <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Language
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="languageDropdown">
+                                <li>
+                                    <select id="languageSelect" class="form-select">
+                                        <option value="en">English</option>
+                                        <option value="bn">বাংলা</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </li>
+
+
+                        @if (currentEmail!=null)
+                        {
+                            @if (currentRole == "Admin")
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link text-dark" asp-page="/Admin/Homepage">Admin Panel</a>
+                                </li>
+                                <li>
+                                    <a class="nav-link text-dark" asp-page="/Templates/Index" asp-route-userId="@int.Parse(Id)">Templates</a>
+                                </li>
+                            }
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-bs-toggle="dropdown">
+                                    @currentEmail
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
+                                    <li><a class="dropdown-item" asp-page="/Account/Manage/Index">Manage Account</a></li>
+                                    <li><a class="dropdown-item" asp-page="/Account/Profile">Profile</a></li> <!-- (Profile page future optional) -->
+                                    <li><hr class="dropdown-divider" /></li>
+                                    <li>
+                                        <form method="post" asp-page="/Account/Logout" class="d-inline">
+                                            <button class="dropdown-item" type="submit">Logout</button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Account/Login">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-page="/Account/Register">Register</a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container mt-4">
+        @RenderBody()
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

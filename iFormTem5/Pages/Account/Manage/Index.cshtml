@@ -1,0 +1,90 @@
+﻿@page
+@model iFormTem5.Pages.Account.Manage.IndexModel
+@{
+    ViewData["Title"] = "Manage Account";
+}
+
+<div class="container mt-4">
+    <h2 class="mb-4 text-center">My Account</h2>
+
+    <ul class="nav nav-tabs" id="manageAccountTabs" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="templates-tab" data-bs-toggle="tab" data-bs-target="#templates" type="button" role="tab" aria-controls="templates" aria-selected="true">
+                My Templates
+            </button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="filledforms-tab" data-bs-toggle="tab" data-bs-target="#filledforms" type="button" role="tab" aria-controls="filledforms" aria-selected="false">
+                My Filled Forms
+            </button>
+        </li>
+    </ul>
+
+    <div class="tab-content mt-3" id="manageAccountTabsContent">
+        <!-- My Templates Tab -->
+        <div class="tab-pane fade show active" id="templates" role="tabpanel" aria-labelledby="templates-tab">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered sortable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Template Name</th>
+                            <th scope="col">Created Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Survey Form 2025</td>
+                            <td>2025-04-15</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Feedback Form</td>
+                            <td>2025-04-20</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- My Filled Forms Tab -->
+        <div class="tab-pane fade" id="filledforms" role="tabpanel" aria-labelledby="filledforms-tab">
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered sortable">
+                    <thead class="table-light">
+                        <tr>
+                            <th scope="col">Form Title</th>
+                            <th scope="col">Filled Date</th>
+                            <th scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Customer Satisfaction Survey</td>
+                            <td>2025-04-22</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary">View</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Event Feedback</td>
+                            <td>2025-04-25</td>
+                            <td>
+                                <button class="btn btn-sm btn-secondary">View</button>
+                                <button class="btn btn-sm btn-danger">Delete</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

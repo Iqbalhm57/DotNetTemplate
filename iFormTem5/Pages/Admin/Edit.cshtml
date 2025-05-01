@@ -1,0 +1,37 @@
+﻿@page "{id}"
+@model iFormTem5.Pages.Admin.EditModel
+
+<h2>Edit User</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="User.Id" />
+    <div class="form-group">
+        <label asp-for="User.UserName"></label>
+        <input asp-for="User.UserName" class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <label asp-for="User.Email"></label>
+        <input asp-for="User.Email" class="form-control" />
+    </div>
+    <div class="form-group mt-3">
+        <label asp-for="User.Role" class="control-label"></label>
+        <select asp-for="User.Role" class="form-control">
+        <option value="Admin">Admin</option>
+        <option value="User">User</option>
+        </select>
+    </div>
+
+    <div class="form-group mt-3">
+        <label asp-for="User.Isblocked"></label>
+        <input asp-for="User.Isblocked" class="form-check-input" />
+    </div>
+    <div class="row mt-3">
+        <div class="col-auto">
+            <button type="submit" class="btn btn-primary">Save</button>
+        </div>
+        <div class="col-auto">
+            <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+        </div>
+    </div>
+
+</form>

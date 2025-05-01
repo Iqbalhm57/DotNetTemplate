@@ -1,0 +1,61 @@
+﻿@page
+@model iFormTem5.Pages.Admin.UserManagementModel
+@using Microsoft.AspNetCore.Identity
+@using iFormTem5.Models
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "User Management";
+}
+
+<h2>User Management</h2>
+
+<form method="post">
+    <table class="table table-bordered table-hover table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>
+                    <input type="checkbox" id="selectAll" onclick="toggleCheckboxes(this)">
+                </th>
+                <th>Email</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Last Login</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model.Users)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" name="SelectedUserIds" value="@user.Id" />
+                    </td>
+                    <td>@user.Email</td>
+                    <td>@user.Role</td>
+                    <td>@(user.IsBlocked ? "Blocked" : "Active")</td>
+                    <td>@user.LastLoginTime?.ToString("g") ?? "Never"</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="d-flex align-items-center">
+        <select name="ActionType" class="form-select w-auto me-2" required>
+            <option value="" disabled selected>Select Action</option>
+            <option value="Promote">Promote to Admin</option>
+            <option value="Demote">Demote to User</option>
+            <option value="Block">Block User</option>
+            <option value="Unblock">Unblock User</option>
+            <option value="Delete">Delete Users</option>
+        </select>
+        <button type="submit" class="btn btn-primary">Apply</button>
+    </div>
+</form>
+
+@section Scripts {
+    <script>
+        function toggleCheckboxes(source) {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedUserIds"]');
+            checkboxes.forEach(cb => cb.checked = source.checked);
+        }
+    </script>
+}

@@ -1,0 +1,45 @@
+﻿@page "{id}/{userId}"
+@model iFormTem5.Pages.Templates.EditModel
+@{
+    ViewData["Title"] = "Edit Template";
+}
+
+<h2>Edit Template</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="Template.Id" />
+    <input type="hidden" asp-for="Template.UserId" />
+    <input type="hidden" asp-for="UserId" />
+
+    <div class="mb-3">
+        <label asp-for="Template.Title" class="form-label"></label>
+        <input asp-for="Template.Title" class="form-control" />
+        <span asp-validation-for="Template.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Template.Description" class="form-label"></label>
+        <textarea asp-for="Template.Description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Template.Topic" class="form-label"></label>
+        <select asp-for="Template.Topic" class="form-select">
+            <option value="Education">Education</option>
+            <option value="Quiz">Quiz</option>
+            <option value="Other">Other</option>
+        </select>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Template.IsPublic" class="form-check-input" />
+        <label asp-for="Template.IsPublic" class="form-check-label"></label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Save</button>
+    <a asp-page="Index" asp-route-userId="@Model.UserId" class="btn btn-secondary">Cancel</a>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

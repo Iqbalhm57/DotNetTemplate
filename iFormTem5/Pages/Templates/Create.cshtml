@@ -1,0 +1,38 @@
+﻿@page "{userId?}"
+@model iFormTem5.Pages.Templates.CreateModel
+@{
+    ViewData["Title"] = "Create Template";
+}
+
+<h2>Create New Template</h2>
+
+<form method="post">
+    <div class="mb-3">
+        <input type="hidden" asp-for="Template.UserId"></input>
+        <label asp-for="Template.Title" class="form-label"></label>
+        <input asp-for="Template.Title" class="form-control" />
+        <span asp-validation-for="Template.Title" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Template.Description" class="form-label"></label>
+        <textarea asp-for="Template.Description" class="form-control"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Template.Topic" class="form-label"></label>
+        <select asp-for="Template.Topic" class="form-select">
+            <option>Education</option>
+            <option>Quiz</option>
+            <option>Other</option>
+        </select>
+    </div>
+
+    <div class="form-check mb-3">
+        <input asp-for="Template.IsPublic" class="form-check-input" />
+        <label asp-for="Template.IsPublic" class="form-check-label">Make Public</label>
+    </div>
+
+    <button type="submit" class="btn btn-success">Create</button>
+    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+</form>

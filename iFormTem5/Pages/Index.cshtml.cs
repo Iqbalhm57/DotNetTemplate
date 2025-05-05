@@ -1,24 +1,26 @@
+using iFormTem5.Data;
 using iFormTem5.Models;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.EntityFrameworkCore;
 
-namespace iFormTem5.Pages
+public class IndexModel : PageModel
 {
-    public class IndexModel : PageModel
+    private readonly ApplicationDbContext _context;
+
+    public IndexModel(ApplicationDbContext context)
     {
-        public int UserId { get; set; }
+        _context = context;
+    }
 
-        public User UserData { get; set; }
-        private readonly ILogger<IndexModel> _logger;
+    public List<Template> PublicTemplates { get; set; } = new();
 
-        public IndexModel(ILogger<IndexModel> logger)
-        {
-            _logger = logger;
-        }
-
-        public void OnGet(int userId)
-        {
-            UserId = userId;
-        }
+    public async Task OnGetAsync()
+    {
+        PublicTemplates = await _context.Templates
+            .Include(t => t.User)
+            .Where(t => t.IsPublic)
+            .OrderByDescending(t => t.CreatedAt)
+            .Take(6) //latest 5 templates 
+            .ToListAsync();
     }
 }

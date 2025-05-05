@@ -1,4 +1,4 @@
-using iFormTem5.Data;
+﻿using iFormTem5.Data;
 using iFormTem5.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -23,36 +23,48 @@ namespace iFormTem5.Pages.Templates
 
         public async Task<IActionResult> OnGetAsync(int id, int userId)
         {
-            Template = await _context.Templates.FindAsync(id);
+            Template = await _context.Templates
+                .Include(t => t.Questions)
+                .FirstOrDefaultAsync(t => t.Id == id);
 
             if (Template == null)
-            {
                 return NotFound();
-            }
 
+            UserId = userId;
             return Page();
         }
 
         public async Task<IActionResult> OnPostAsync()
         {
+            var existingTemplate = await _context.Templates
+                .Include(t => t.Questions)
+                .FirstOrDefaultAsync(t => t.Id == Template.Id);
 
-            _context.Attach(Template).State = EntityState.Modified;
+            if (existingTemplate == null)
+                return NotFound();
 
-            try
+            // Update scalar properties
+            existingTemplate.Title = Template.Title;
+            existingTemplate.Description = Template.Description;
+            existingTemplate.Topic = Template.Topic;
+            existingTemplate.IsPublic = Template.IsPublic;
+
+            // Replace questions
+            existingTemplate.Questions.Clear();
+            foreach (var q in Template.Questions)
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!_context.Templates.Any(e => e.Id == Template.Id))
+                if (!string.IsNullOrWhiteSpace(q.Text))
                 {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
+                    existingTemplate.Questions.Add(new Question
+                    {
+                        Text = q.Text,
+                        CorrectAnswer = q.CorrectAnswer,
+                        PointValue = q.PointValue
+                    });
                 }
             }
+
+            await _context.SaveChangesAsync();
 
             return RedirectToPage("Index", new { userId = UserId });
         }

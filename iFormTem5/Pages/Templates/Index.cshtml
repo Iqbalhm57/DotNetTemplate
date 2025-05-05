@@ -16,16 +16,16 @@
                 <th>Description</th>
                 <th>Topic</th>
                 <th>Visibility</th>
-                <th>Created By</th>
+                <th>Author</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
             @foreach (var template in Model.Templates)
             {
-                
-                    var user = Model.UserData.FirstOrDefault(c => c.Id == template.UserId);
-                
+
+                var user = Model.UserData.FirstOrDefault(c => c.Id == template.UserId);
+
                 <tr>
                     <td><a asp-page="Details" asp-route-id="@template.Id">@template.Title</a></td>
                     <td>@template.Description</td>
@@ -33,13 +33,27 @@
                     <td>@(template.IsPublic ? "Public" : "Private")</td>
                     <td>@user.Email</td>
                     <td>
-                        <a asp-page="Edit" asp-route-id="@template.Id" asp-route-userId="@Model.UserId" class="btn btn-sm btn-warning">Edit</a>
-                        <form method="post" asp-page-handler="Delete" asp-route-id="@template.Id" class="d-inline">
-                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                        </form>
+                        @if(Model.CurrentUserData.Role == "Admin")
+                        {
+                            <a asp-page="Edit" asp-route-id="@template.Id" asp-route-userId="@Model.UserId" class="btn btn-sm btn-warning">Edit</a>
+                            <form method="post" asp-page-handler="Delete" asp-route-id="@template.Id" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                            </form>
+                        }
+
+                        @if (Model.HasTakenQuiz.ContainsKey(template.Id) && Model.HasTakenQuiz[template.Id])
+                        {
+                            <a asp-page="/Admin/Quiz/Result" asp-route-templateId="@template.Id" asp-route-userId="@Model.UserId" class="btn btn-sm btn-info">Show Result</a>
+                        }
+                        else
+                        {
+                            <a asp-page="/Admin/Quiz/Take" asp-route-templateId="@template.Id" asp-route-userId="@Model.UserId" class="btn btn-sm btn-success">Take Quiz</a>
+                        }
+
+
                     </td>
                 </tr>
-            }
+            } 
         </tbody>
     </table>
 }

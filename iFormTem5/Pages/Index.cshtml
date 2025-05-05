@@ -4,7 +4,25 @@
     ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h2 class="text-center mb-4">Latest Public Templates</h2>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    @foreach (var template in Model.PublicTemplates)
+    {
+        <div class="col">
+            <div class="card h-100 shadow-sm">
+                @if (!string.IsNullOrEmpty(template.ImageUrl))
+                {
+                    <img src="@template.ImageUrl" class="card-img-top" alt="Template Image" style="max-height: 200px; object-fit: cover;" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@template.Title</h5>
+                    <p class="card-text">@template.Description?.Substring(0, Math.Min(100, template.Description.Length))...</p>
+                </div>
+                <div class="card-footer text-muted">
+                    By: @template.User.Email
+                </div>
+            </div>
+        </div>
+    }
 </div>

@@ -1,0 +1,41 @@
+﻿@page "{userId:int}"
+@model iFormTem5.Pages.Quiz.ResultModel
+@{
+    ViewData["Title"] = "Quiz Result";
+}
+
+<h2>Quiz Result</h2>
+
+@if (Model.TotalAnswers == 0)
+{
+    <p>No answers found for this user.</p>
+}
+else
+{
+    <p><strong>Total Score:</strong> @Model.TotalScore</p>
+    <p><strong>Questions Answered:</strong> @Model.TotalAnswers</p>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Question</th>
+                <th>Your Answer</th>
+                <th>Correct</th>
+                <th>Score</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var answer in Model.Answers)
+            {
+                <tr>
+                    <td>@answer.Question.Text</td>
+                    <td>@answer.Answer</td>
+                    <td>@(answer.IsCorrect ? "✅" : "❌")</td>
+                    <td>@answer.Score</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+<a asp-page="/Templates/Index" asp-route-userId="@Model.Answers.FirstOrDefault()?.UserId" class="btn btn-secondary mt-3">
+    Cancel
+</a>

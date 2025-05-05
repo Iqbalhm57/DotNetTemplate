@@ -79,8 +79,7 @@
                                     @currentEmail
                                 </a>
                                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="accountDropdown">
-                                    <li><a class="dropdown-item" asp-page="/Account/Manage/Index">Manage Account</a></li>
-                                    <li><a class="dropdown-item" asp-page="/Account/Profile">Profile</a></li> <!-- (Profile page future optional) -->
+                                    <li><a class="dropdown-item" asp-page="/Templates/Index" asp-route-userId="@int.Parse(Id)">Manage Account</a></li>
                                     <li><hr class="dropdown-divider" /></li>
                                     <li>
                                         <form method="post" asp-page="/Account/Logout" class="d-inline">

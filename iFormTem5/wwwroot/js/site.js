@@ -1,6 +1,6 @@
-﻿// Load Theme and Language on Page Load
+﻿//  Theme and language on page load
 document.addEventListener("DOMContentLoaded", function () {
-    // Theme Setup
+    // sheme Setup
     const theme = localStorage.getItem("theme") || "light";
     setTheme(theme);
 

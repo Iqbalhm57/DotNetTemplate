@@ -61,7 +61,7 @@ namespace iFormTem5.Pages.Account
                 {
                     return RedirectToPage("/Admin/Homepage");
                 }
-                // Redirect to your dashboard or homepage
+                // Redirect to your homepage
                 return RedirectToPage("/Templates/Index", new { userId = user.Id });
         }
     }

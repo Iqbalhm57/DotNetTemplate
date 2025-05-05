@@ -1,0 +1,25 @@
+﻿@page "{templateId:int}/{userId:int}"
+@model iFormTem5.Pages.Quiz.TakeModel
+@{
+    ViewData["Title"] = "Take Quiz";
+}
+
+<h2>@Model.Template.Title</h2>
+
+<form method="post">
+    <input type="hidden" asp-for="TemplateId" />
+    <input type="hidden" asp-for="UserId" />
+
+    @for (int i = 0; i < Model.Questions.Count; i++)
+    {
+        <div class="mb-3">
+            <label class="form-label">@Model.Questions[i].Text</label>
+            <input asp-for="UserAnswers[i].Answer" class="form-control" />
+            <input type="hidden" asp-for="UserAnswers[i].QuestionId" />
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Submit Quiz</button>
+    <a asp-page="/Templates/Index" asp-route-userId="@Model.UserId" class="btn btn-secondary">Cancel</a>
+
+</form>

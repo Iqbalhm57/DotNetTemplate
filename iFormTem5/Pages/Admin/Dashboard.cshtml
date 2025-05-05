@@ -1,4 +1,4 @@
-﻿@page
+﻿@* @page
 @model iFormTem5.Pages.Admin.UserManagementModel
 @using Microsoft.AspNetCore.Identity
 @using iFormTem5.Models
@@ -30,8 +30,8 @@
                         <input type="checkbox" name="SelectedUserIds" value="@user.Id" />
                     </td>
                     <td>@user.Email</td>
-                    <td>@user.Role</td>
-                    <td>@(user.IsBlocked ? "Blocked" : "Active")</td>
+                    <td><span class="badge bg-@(user.Role == "Admin" ? "success" : "secondary")">@user.Role</span></td>
+                    <td><span class="badge bg-@(user.IsBlocked ? "danger" : "primary")">@(user.IsBlocked ? "Blocked" : "Active")</span></td>
                     <td>@user.LastLoginTime?.ToString("g") ?? "Never"</td>
                 </tr>
             }
@@ -47,7 +47,7 @@
             <option value="Unblock">Unblock User</option>
             <option value="Delete">Delete Users</option>
         </select>
-        <button type="submit" class="btn btn-primary">Apply</button>
+        <button type="submit" class="btn btn-primary" id="applyBtn" disabled>Apply</button>
     </div>
 </form>
 
@@ -56,6 +56,22 @@
         function toggleCheckboxes(source) {
             const checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedUserIds"]');
             checkboxes.forEach(cb => cb.checked = source.checked);
+            updateApplyButton();
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"][name="SelectedUserIds"]');
+            const actionSelect = document.querySelector('select[name="ActionType"]');
+            checkboxes.forEach(cb => cb.addEventListener('change', updateApplyButton));
+            actionSelect.addEventListener('change', updateApplyButton);
+        });
+
+        function updateApplyButton() {
+            const anyChecked = [...document.querySelectorAll('input[name="SelectedUserIds"]:checked')].length > 0;
+            const actionSelected = document.querySelector('select[name="ActionType"]').value !== "";
+            document.getElementById('applyBtn').disabled = !(anyChecked && actionSelected);
         }
     </script>
+
 }
+ *@

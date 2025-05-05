@@ -7,8 +7,9 @@
 <h2>Create New Template</h2>
 
 <form method="post">
+    <input type="hidden" asp-for="Template.UserId" />
+
     <div class="mb-3">
-        <input type="hidden" asp-for="Template.UserId"></input>
         <label asp-for="Template.Title" class="form-label"></label>
         <input asp-for="Template.Title" class="form-control" />
         <span asp-validation-for="Template.Title" class="text-danger"></span>
@@ -33,6 +34,43 @@
         <label asp-for="Template.IsPublic" class="form-check-label">Make Public</label>
     </div>
 
-    <button type="submit" class="btn btn-success">Create</button>
-    <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    <h4>Questions</h4>
+    <div id="questions-container" class="mb-3"></div>
+
+    <button type="button" class="btn btn-info mb-3" onclick="addQuestion()">+ Add Question</button>
+
+    <div>
+        <button type="submit" class="btn btn-success">Create</button>
+        <a asp-page="Index" class="btn btn-secondary">Cancel</a>
+    </div>
 </form>
+
+@section Scripts {
+    <script>
+        let questionIndex = 0;
+
+        function addQuestion() {
+            const container = document.getElementById('questions-container');
+
+            const questionDiv = document.createElement('div');
+            questionDiv.classList.add('border', 'p-3', 'mb-3', 'rounded');
+
+            questionDiv.innerHTML = `
+                <div class="mb-2">
+                    <label>Question Text</label>
+                    <input name="Questions[${questionIndex}].Text" class="form-control" required />
+                </div>
+                <div class="mb-2">
+                    <label>Correct Answer</label>
+                    <input name="Questions[${questionIndex}].CorrectAnswer" class="form-control" required />
+                </div>
+                <div class="mb-2">
+                    <label>Point Value</label>
+                    <input type="number" name="Questions[${questionIndex}].PointValue" class="form-control" value="1" min="0" />
+                </div>
+            `;
+            container.appendChild(questionDiv);
+            questionIndex++;
+        }
+    </script>
+}

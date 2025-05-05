@@ -33,5 +33,13 @@ namespace iFormTem5.Models
 
         public int Order { get; set; } = 0;
         public int DisplayOrder { get; set; }
+
+        [StringLength(500)]
+        public string? CorrectAnswer { get; set; }
+
+   
+        [Range(0, 100)]
+        public int PointValue { get; set; } = 1; // Default 1 point per question
+
     }
 }

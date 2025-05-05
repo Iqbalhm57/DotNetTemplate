@@ -19,6 +19,8 @@ namespace iFormTem5.Data
         public DbSet<TemplateTag> TemplateTags { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<UserAnswer> UserAnswers { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

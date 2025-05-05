@@ -7,6 +7,8 @@ namespace iFormTem5.Models
     {
         [Required]
         public bool IsBlocked { get; set; } = false;
+        public bool Isblocked { get; internal set; }
         public DateTime? LastLoginTime { get; set; }
+        public string Role { get; internal set; }
     }
 }

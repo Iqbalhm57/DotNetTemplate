@@ -2,10 +2,18 @@ iFormTem5 is a powerful and customizable web-based form builder inspired by Goog
 
 🔑 Key Features
 
-✅ User authentication & admin role management
+✅ User Registration, Login & Role Managemen
+
+✅ Admin Panel for managing users and templates
 
 ✅ Form template creation & editing
 
 ✅ Responsive UI with theming
+ 
+✅Theme toggle for light/dark mode
 
-✅ Admin panel with user controls 
+✅Responsive UI (Bootstrap 5)
+
+
+
+
